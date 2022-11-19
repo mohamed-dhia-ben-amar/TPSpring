@@ -7,6 +7,7 @@ import com.example.esprit.tpspring.Services.IProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,4 +34,15 @@ public class ProduitRestController {
     {
         return iProduitService.retrieveProduit(idProduit);
     }
+
+    @GetMapping("/AssignProduitToStock/{idP}/{idS}")
+    void assignProduitToStock(@PathVariable(value = "idP") Long idProduit, @PathVariable(value = "idS") Long idStock){
+        iProduitService.assignProduitToStock(idProduit, idStock);
+    }
+
+    @GetMapping("/GetRevenuBrutProduit/{idP}/{startDate}/{endDate}")
+    float getRevenuBrutProduit(@PathVariable(value = "idP") Long idProduit, @PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate){
+        return iProduitService.getRevenuBrutProduit(idProduit, startDate, endDate);
+    }
+
 }

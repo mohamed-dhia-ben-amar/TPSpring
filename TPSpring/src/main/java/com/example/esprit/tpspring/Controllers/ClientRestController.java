@@ -1,10 +1,12 @@
 package com.example.esprit.tpspring.Controllers;
 
+import com.example.esprit.tpspring.Entities.CategorieClient;
 import com.example.esprit.tpspring.Entities.Client;
 import com.example.esprit.tpspring.Services.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,6 +44,11 @@ public class ClientRestController {
     public void removeClient(@PathVariable(value = "idC") long idClient)
     {
         iClientService.deleteClient(idClient);
+    }
+
+    @GetMapping("/GetChiffreAffaireParCategorieClient/{categorieClient}/{startDate}/{endDate}")
+    public float getChiffreAffaireParCategorieClient(@PathVariable(value = "categorieClient") CategorieClient categorieClient, @PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
+        return iClientService.getChiffreAffaireParCategorieClient(categorieClient, startDate, endDate);
     }
 
 }

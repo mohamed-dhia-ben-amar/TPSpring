@@ -39,4 +39,9 @@ public class StockRestController {
         return iStockService.retrieveStock(idStock);
     }
 
+    @GetMapping("/retrieveStatusStock")
+    String retrieveStatusStock(){
+        return iStockService.retrieveStatusStock();
+    }
+
 }

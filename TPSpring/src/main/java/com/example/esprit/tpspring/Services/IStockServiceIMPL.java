@@ -3,6 +3,7 @@ package com.example.esprit.tpspring.Services;
 import com.example.esprit.tpspring.Entities.Stock;
 import com.example.esprit.tpspring.Repositories.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,5 +32,18 @@ public class IStockServiceIMPL implements IStockService {
     @Override
     public Stock retrieveStock(Long id) {
         return stockRepository.findById(id).orElse(null);
+    }
+
+    @Scheduled(cron = "0 0 10 * * *")
+    @Override
+    public String retrieveStatusStock() {
+        String msg = "";
+        List<Stock> stocks = stockRepository.findAll();
+        for (Stock stock : stocks) {
+            if (stock.getQteStock() < stock.getQteMin()) {
+                return msg = stock.getLibelleStock() + " is in critical condition";
+            }
+        }
+        return "Everything is all good";
     }
 }
